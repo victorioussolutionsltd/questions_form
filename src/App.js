@@ -1,23 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import QuestionForm from './components/QuestionForm';
+import { getConfig } from "./MockedConfig"
 
 function App() {
+
+  const [config, setConfig] = useState(null);
+  const [showModal, setShowModal] = useState(true);
+
+  useEffect(() => {
+    setConfig(getConfig());
+  }, [])
+
+  const formSubmitted = (values) => {
+    console.log(values)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <QuestionForm
+          open={showModal}
+          onClose={() => { }}
+          questions={config?.questions}
+          submitted={formSubmitted}
+        />
       </header>
     </div>
   );
